@@ -59,8 +59,27 @@ public abstract class AbsWalls extends Fragment {
 
         root = (ViewGroup) inflater.inflate(R.layout.wallpapers, null);
 
+        SwipeRefresh();
+
         new DownloadJSON().execute();
         return root;
+    }
+
+    private void SwipeRefresh(){
+        mSwipeRefreshLayout = (SwipeRefreshLayout) root.findViewById(R.id.reloadgrid);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+        mSwipeRefreshLayout.setColorSchemeColors(R.color.primaryColor, R.color.primaryColorDark);
+    }
+
+    @Override
+    public void onRefresh() {
+        new SnackBar.Builder(getActivity())
+                .withMessageId(R.string.done)
+                .withStyle(SnackBar.Style.ALERT)
+                .withDuration(SnackBar.MED_SNACK)
+                .show();
+
+        new DownloadJSON().execute();
     }
 
     private class DownloadJSON extends AsyncTask<Void, Void, Void> {
@@ -94,6 +113,8 @@ public abstract class AbsWalls extends Fragment {
 
         @Override
         protected void onPostExecute(Void args) {
+
+            mSwipeRefreshLayout.setRefreshing(false);
 
             mGridView = (GridView) root.findViewById(R.id.gridView);
             numColumns = getNumColumns();

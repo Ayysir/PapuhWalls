@@ -4,14 +4,22 @@
     android:layout_height="match_parent"
     tools:context="com.alexcruz.papuhwalls.MainActivity">
 
-    <GridView
-        android:id="@+id/gridView"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/reloadgrid"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:numColumns="auto_fit"
-        android:layout_above="@+id/button" />
+        android:layout_height="match_parent">
+
+
+        <GridView
+            android:id="@+id/gridView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/button"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:numColumns="auto_fit" />
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:layout_width="match_parent"
